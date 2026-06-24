@@ -1,26 +1,38 @@
-function openGame(name) {
-  localStorage.setItem("lastGame", name);
-  window.location.href = "games/game.html?name=" + encodeURIComponent(name);
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-/* LIVE SEARCH (works with your existing cards only) */
-const search = document.getElementById("search");
+  /* CLICK FIX (works even if HTML is messy) */
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.cursor = "pointer";
 
-if (search) {
-  search.addEventListener("input", () => {
-    const value = search.value.toLowerCase();
-    const cards = document.querySelectorAll(".card");
+    card.addEventListener("click", () => {
+      const title = card.querySelector("h3")?.innerText?.trim();
 
-    cards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(value) ? "block" : "none";
+      if (!title) return;
+
+      localStorage.setItem("lastGame", title);
+      window.location.href = "games/game.html?name=" + encodeURIComponent(title);
     });
   });
-}
 
-/* AUTO FIX BROKEN IMAGES (fallback thumbnails) */
-document.querySelectorAll(".card img").forEach(img => {
-  img.onerror = () => {
-    img.src = "https://via.placeholder.com/400x250/1b1f36/ffffff?text=Game";
-  };
+  /* SEARCH FIX (stable filtering, no layout breaking) */
+  const search = document.getElementById("search");
+
+  if (search) {
+    search.addEventListener("input", () => {
+      const value = search.value.toLowerCase();
+
+      document.querySelectorAll(".card").forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(value) ? "" : "none";
+      });
+    });
+  }
+
+  /* IMAGE FIX (stops broken thumbnails) */
+  document.querySelectorAll(".card img").forEach(img => {
+    img.onerror = () => {
+      img.src = "https://via.placeholder.com/400x250/111827/ffffff?text=Game";
+    };
+  });
+
 });
