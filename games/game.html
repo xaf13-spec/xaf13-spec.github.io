@@ -1,23 +1,21 @@
-<script>
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 
-document.getElementById("title").innerText = name || "Game";
+const title = document.getElementById("title");
+const frame = document.getElementById("frame");
 
-/* GAME LIBRARY */
+title.textContent = name || "Game";
+
+/* CLEAN GAME MAP (ONLY WORKING LINKS) */
 const games = {
   "Drive Mad": "https://www.crazygames.com/embed/drive-mad",
   "Retro Bowl": "https://www.crazygames.com/embed/retro-bowl",
-  "2048": "https://play2048.co/",
-  "Slope": "https://www.crazygames.com/embed/slope"
+  "Slope": "https://www.crazygames.com/embed/slope",
+  "2048": "https://play2048.co/"
 };
 
-document.getElementById("frame").src = games[name] || "";
-
-/* RECENTLY PLAYED (no UI change, just memory) */
-if (name) {
-  let recent = JSON.parse(localStorage.getItem("recentGames") || "[]");
-  recent = [name, ...recent.filter(g => g !== name)].slice(0, 5);
-  localStorage.setItem("recentGames", JSON.stringify(recent));
+if (games[name]) {
+  frame.src = games[name];
+} else {
+  frame.outerHTML = "<p style='color:white'>Game not found</p>";
 }
-</script>
