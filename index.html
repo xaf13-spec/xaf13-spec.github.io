@@ -1,267 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MX Game Central</title>
-
-<style>
-:root{
-  --bg:#111827;
-  --card:#1f2937;
-  --accent:#3b82f6;
-  --text:white;
-}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:var(--card);
-  padding:15px;
-  position:sticky;
-  top:0;
-}
-
-.logo{
-  font-size:28px;
-  font-weight:bold;
-}
-
-.menu{
-  display:flex;
-  gap:20px;
-}
-
-.menu a{
-  color:white;
-  text-decoration:none;
-}
-
-.search{
-  padding:10px;
-  border:none;
-  border-radius:8px;
-}
-
-.hero{
-  text-align:center;
-  padding:60px 20px;
-}
-
-.hero h1{
-  font-size:50px;
-}
-
-.section{
-  padding:30px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-
-.card{
-  background:var(--card);
-  border-radius:12px;
-  overflow:hidden;
-  transition:.3s;
-}
-
-.card:hover{
-  transform:translateY(-5px);
-}
-
-.card img{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-}
-
-.card h3{
-  padding:10px;
-}
-
-.categories{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.category{
-  background:var(--card);
-  padding:10px 20px;
-  border-radius:999px;
-}
-
-.settings{
-  margin-top:20px;
-}
-
-button{
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.mobile{
-  display:none;
-}
-
-@media(max-width:768px){
-  .menu{
-    display:none;
-  }
-  .mobile{
-    display:block;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Hub</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<nav>
-  <div class="logo">🎮 MX Game Central</div>
+<header>
+  <h1>🎮 Game Hub</h1>
 
-  <div class="menu">
+  <nav>
     <a href="#">Home</a>
-    <a href="#">Games</a>
+    <a href="#">Popular</a>
     <a href="#">Categories</a>
-    <a href="#">Settings</a>
-  </div>
+  </nav>
 
-  <input class="search" id="searchBar" placeholder="Search games...">
+  <input type="text" id="search" placeholder="Search games...">
+</header>
 
-  <div class="mobile">☰</div>
-</nav>
+<main>
+  <div class="grid">
 
-<section class="hero">
-  <h1>Play Free Games Online</h1>
-  <p>Fast, fun browser games with no downloads.</p>
-</section>
-
-<section class="section">
-  <h2>Categories</h2>
-
-  <div class="categories">
-    <div class="category">🏎 Racing</div>
-    <div class="category">⚽ Sports</div>
-    <div class="category">🧩 Puzzle</div>
-    <div class="category">⚔ Action</div>
-    <div class="category">🎯 Arcade</div>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Popular Games</h2>
-
-  <div class="grid" id="gameGrid">
-
-    <div class="card">
+    <a class="card" href="games/game.html?name=Drive%20Mad">
       <img src="https://picsum.photos/400/250?1">
       <h3>Drive Mad</h3>
-    </div>
+    </a>
 
-    <div class="card">
+    <a class="card" href="games/game.html?name=Retro%20Bowl">
       <img src="https://picsum.photos/400/250?2">
       <h3>Retro Bowl</h3>
-    </div>
+    </a>
 
-    <div class="card">
+    <a class="card" href="games/game.html?name=2048">
       <img src="https://picsum.photos/400/250?3">
-      <h3>Slope</h3>
-    </div>
+      <h3>2048</h3>
+    </a>
 
-    <div class="card">
+    <a class="card" href="games/game.html?name=Slope">
       <img src="https://picsum.photos/400/250?4">
-      <h3>Basketball Stars</h3>
-    </div>
+      <h3>Slope</h3>
+    </a>
 
   </div>
+</main>
 
-  <p id="noResults" style="display:none;">
-    No games found.
-  </p>
-</section>
-
-<section class="section">
-  <h2>Theme Settings</h2>
-
-  <div class="settings">
-    <button onclick="setTheme('dark')">Dark</button>
-    <button onclick="setTheme('blue')">Blue</button>
-    <button onclick="setTheme('purple')">Purple</button>
-    <button onclick="setTheme('green')">Green</button>
-  </div>
-</section>
-
-<script>
-const searchBar=document.getElementById("searchBar");
-const noResults=document.getElementById("noResults");
-
-searchBar.addEventListener("keyup",()=>{
- const search=searchBar.value.toLowerCase();
- const cards=document.querySelectorAll(".card");
-
- let visible=0;
-
- cards.forEach(card=>{
-  const title=card.querySelector("h3").textContent.toLowerCase();
-
-  if(title.includes(search)){
-   card.style.display="block";
-   visible++;
-  }else{
-   card.style.display="none";
-  }
- });
-
- noResults.style.display=visible===0?"block":"none";
-});
-
-function setTheme(theme){
-
- if(theme==="dark"){
-  document.documentElement.style.setProperty('--bg','#111827');
-  document.documentElement.style.setProperty('--card','#1f2937');
- }
-
- if(theme==="blue"){
-  document.documentElement.style.setProperty('--bg','#0f172a');
-  document.documentElement.style.setProperty('--card','#2563eb');
- }
-
- if(theme==="purple"){
-  document.documentElement.style.setProperty('--bg','#2e1065');
-  document.documentElement.style.setProperty('--card','#7c3aed');
- }
-
- if(theme==="green"){
-  document.documentElement.style.setProperty('--bg','#052e16');
-  document.documentElement.style.setProperty('--card','#16a34a');
- }
-
- localStorage.setItem("theme",theme);
-}
-
-window.onload=()=>{
- const theme=localStorage.getItem("theme");
-
- if(theme){
-  setTheme(theme);
- }
-};
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
