@@ -1,24 +1,33 @@
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 
-const title = document.getElementById("title");
-const frame = document.getElementById("frame");
+/* SAFE ELEMENT GRAB (prevents crashes) */
+const title = document.getElementById("title") 
+            || document.getElementById("gameTitle");
 
-title.textContent = name || "Game";
+const frame = document.getElementById("frame") 
+            || document.getElementById("gameFrame");
 
-/* SAME ENGINE SOURCE (MATCHES HOME PAGE) */
-const GAME_MAP = {
+/* SAFETY CHECK */
+if (title) {
+  title.textContent = name || "Game";
+}
+
+/* GAME MAP */
+const games = {
   "Drive Mad": "https://www.crazygames.com/embed/drive-mad",
   "Retro Bowl": "https://www.crazygames.com/embed/retro-bowl",
   "Slope": "https://www.crazygames.com/embed/slope",
   "2048": "https://play2048.co/"
 };
 
-const url = GAME_MAP[name];
+const url = games[name];
 
-if (url) {
-  frame.src = url;
-} else {
-  document.body.innerHTML =
-    "<h2 style='color:white;text-align:center'>Game not found</h2>";
+/* LOAD GAME OR FAIL CLEANLY */
+if (frame) {
+  if (url) {
+    frame.src = url;
+  } else {
+    frame.outerHTML = "<p style='color:white;text-align:center'>Game not found</p>";
+  }
 }
