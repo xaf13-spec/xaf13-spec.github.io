@@ -6,140 +6,262 @@
 <title>MX Game Central</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
+:root{
+  --bg:#111827;
+  --card:#1f2937;
+  --accent:#3b82f6;
+  --text:white;
 }
 
 body{
-    background:#111827;
-    color:white;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-header{
-    background:#1f2937;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--card);
+  padding:15px;
+  position:sticky;
+  top:0;
 }
 
 .logo{
-    font-size:32px;
-    font-weight:bold;
-    color:#3b82f6;
+  font-size:28px;
+  font-weight:bold;
+}
+
+.menu{
+  display:flex;
+  gap:20px;
+}
+
+.menu a{
+  color:white;
+  text-decoration:none;
 }
 
 .search{
-    padding:10px;
-    width:250px;
-    border:none;
-    border-radius:8px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
 }
 
 .hero{
-    text-align:center;
-    padding:60px 20px;
+  text-align:center;
+  padding:60px 20px;
 }
 
 .hero h1{
-    font-size:50px;
-    margin-bottom:10px;
+  font-size:50px;
 }
 
-.hero p{
-    color:#9ca3af;
-}
-
-.games{
-    padding:30px;
-}
-
-.games h2{
-    margin-bottom:20px;
+.section{
+  padding:30px;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
 }
 
 .card{
-    background:#1f2937;
-    border-radius:15px;
-    overflow:hidden;
-    transition:.3s;
-    cursor:pointer;
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  transition:.3s;
 }
 
 .card:hover{
-    transform:translateY(-8px);
+  transform:translateY(-5px);
 }
 
 .card img{
-    width:100%;
-    height:150px;
-    object-fit:cover;
+  width:100%;
+  height:150px;
+  object-fit:cover;
 }
 
 .card h3{
-    padding:15px;
+  padding:10px;
 }
 
-footer{
-    text-align:center;
-    padding:30px;
-    color:#9ca3af;
+.categories{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.category{
+  background:var(--card);
+  padding:10px 20px;
+  border-radius:999px;
+}
+
+.settings{
+  margin-top:20px;
+}
+
+button{
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.mobile{
+  display:none;
+}
+
+@media(max-width:768px){
+  .menu{
+    display:none;
+  }
+  .mobile{
+    display:block;
+  }
 }
 </style>
 </head>
-
 <body>
 
-<header>
-    <div class="logo">MX Game Central</div>
-    <input class="search" type="text" placeholder="Search games...">
-</header>
+<nav>
+  <div class="logo">🎮 MX Game Central</div>
+
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#">Games</a>
+    <a href="#">Categories</a>
+    <a href="#">Settings</a>
+  </div>
+
+  <input class="search" id="searchBar" placeholder="Search games...">
+
+  <div class="mobile">☰</div>
+</nav>
 
 <section class="hero">
-    <h1>Play Free Games Online</h1>
-    <p>Thousands of browser games. No downloads required.</p>
+  <h1>Play Free Games Online</h1>
+  <p>Fast, fun browser games with no downloads.</p>
 </section>
 
-<section class="games">
-    <h2>Popular Games</h2>
+<section class="section">
+  <h2>Categories</h2>
 
-    <div class="grid">
+  <div class="categories">
+    <div class="category">🏎 Racing</div>
+    <div class="category">⚽ Sports</div>
+    <div class="category">🧩 Puzzle</div>
+    <div class="category">⚔ Action</div>
+    <div class="category">🎯 Arcade</div>
+  </div>
+</section>
 
-        <div class="card">
-            <img src="https://picsum.photos/400/250?1">
-            <h3>Drive Mad</h3>
-        </div>
+<section class="section">
+  <h2>Popular Games</h2>
 
-        <div class="card">
-            <img src="https://picsum.photos/400/250?2">
-            <h3>Retro Bowl</h3>
-        </div>
+  <div class="grid" id="gameGrid">
 
-        <div class="card">
-            <img src="https://picsum.photos/400/250?3">
-            <h3>Basketball Stars</h3>
-        </div>
-
-        <div class="card">
-            <img src="https://picsum.photos/400/250?4">
-            <h3>Slope</h3>
-        </div>
-
+    <div class="card">
+      <img src="https://picsum.photos/400/250?1">
+      <h3>Drive Mad</h3>
     </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/400/250?2">
+      <h3>Retro Bowl</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/400/250?3">
+      <h3>Slope</h3>
+    </div>
+
+    <div class="card">
+      <img src="https://picsum.photos/400/250?4">
+      <h3>Basketball Stars</h3>
+    </div>
+
+  </div>
+
+  <p id="noResults" style="display:none;">
+    No games found.
+  </p>
 </section>
 
-<footer>
-    © 2026 MX Game Central
-</footer>
+<section class="section">
+  <h2>Theme Settings</h2>
+
+  <div class="settings">
+    <button onclick="setTheme('dark')">Dark</button>
+    <button onclick="setTheme('blue')">Blue</button>
+    <button onclick="setTheme('purple')">Purple</button>
+    <button onclick="setTheme('green')">Green</button>
+  </div>
+</section>
+
+<script>
+const searchBar=document.getElementById("searchBar");
+const noResults=document.getElementById("noResults");
+
+searchBar.addEventListener("keyup",()=>{
+ const search=searchBar.value.toLowerCase();
+ const cards=document.querySelectorAll(".card");
+
+ let visible=0;
+
+ cards.forEach(card=>{
+  const title=card.querySelector("h3").textContent.toLowerCase();
+
+  if(title.includes(search)){
+   card.style.display="block";
+   visible++;
+  }else{
+   card.style.display="none";
+  }
+ });
+
+ noResults.style.display=visible===0?"block":"none";
+});
+
+function setTheme(theme){
+
+ if(theme==="dark"){
+  document.documentElement.style.setProperty('--bg','#111827');
+  document.documentElement.style.setProperty('--card','#1f2937');
+ }
+
+ if(theme==="blue"){
+  document.documentElement.style.setProperty('--bg','#0f172a');
+  document.documentElement.style.setProperty('--card','#2563eb');
+ }
+
+ if(theme==="purple"){
+  document.documentElement.style.setProperty('--bg','#2e1065');
+  document.documentElement.style.setProperty('--card','#7c3aed');
+ }
+
+ if(theme==="green"){
+  document.documentElement.style.setProperty('--bg','#052e16');
+  document.documentElement.style.setProperty('--card','#16a34a');
+ }
+
+ localStorage.setItem("theme",theme);
+}
+
+window.onload=()=>{
+ const theme=localStorage.getItem("theme");
+
+ if(theme){
+  setTheme(theme);
+ }
+};
+</script>
 
 </body>
 </html>
