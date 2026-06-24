@@ -9,3 +9,7 @@ search.addEventListener("input", () => {
     card.style.display = title.includes(value) ? "block" : "none";
   });
 });
+
+function openGame(name) {
+  window.location.href = "games/game.html?name=" + encodeURIComponent(name);
+}
