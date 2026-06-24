@@ -6,16 +6,19 @@ const frame = document.getElementById("frame");
 
 title.textContent = name || "Game";
 
-/* CLEAN GAME MAP (ONLY WORKING LINKS) */
-const games = {
+/* SAME ENGINE SOURCE (MATCHES HOME PAGE) */
+const GAME_MAP = {
   "Drive Mad": "https://www.crazygames.com/embed/drive-mad",
   "Retro Bowl": "https://www.crazygames.com/embed/retro-bowl",
   "Slope": "https://www.crazygames.com/embed/slope",
   "2048": "https://play2048.co/"
 };
 
-if (games[name]) {
-  frame.src = games[name];
+const url = GAME_MAP[name];
+
+if (url) {
+  frame.src = url;
 } else {
-  frame.outerHTML = "<p style='color:white'>Game not found</p>";
+  document.body.innerHTML =
+    "<h2 style='color:white;text-align:center'>Game not found</h2>";
 }
