@@ -1,37 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Game</title>
-  <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
-
-<header>
-  <h1 id="gameTitle">Loading...</h1>
-  <a href="../index.html" style="color:white;">⬅ Back</a>
-</header>
-
-<main style="text-align:center; padding:20px;">
-  <iframe id="gameFrame" width="90%" height="500px"></iframe>
-</main>
-
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("name");
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
 
-  document.getElementById("gameTitle").innerText = name;
+document.getElementById("title").innerText = name || "Game";
 
-  // PLACEHOLDER (you replace links later)
-  const games = {
-    "Drive Mad": "https://www.crazygames.com/embed/drive-mad",
-    "Retro Bowl": "https://www.crazygames.com/embed/retro-bowl",
-    "2048": "https://play2048.co/",
-    "Slope": "https://ozgames.io/slope"
-  };
+/* GAME LIBRARY */
+const games = {
+  "Drive Mad": "https://www.crazygames.com/embed/drive-mad",
+  "Retro Bowl": "https://www.crazygames.com/embed/retro-bowl",
+  "2048": "https://play2048.co/",
+  "Slope": "https://www.crazygames.com/embed/slope"
+};
 
-  document.getElementById("gameFrame").src = games[name] || "";
+document.getElementById("frame").src = games[name] || "";
+
+/* RECENTLY PLAYED (no UI change, just memory) */
+if (name) {
+  let recent = JSON.parse(localStorage.getItem("recentGames") || "[]");
+  recent = [name, ...recent.filter(g => g !== name)].slice(0, 5);
+  localStorage.setItem("recentGames", JSON.stringify(recent));
+}
 </script>
-
-</body>
-</html>
